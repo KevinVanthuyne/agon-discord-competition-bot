@@ -1,17 +1,21 @@
 const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
-const { token } = require('./config.json');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
+const { token, clientId } = require('./config.json');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 // Load all commands
+const commands = [];
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.data.name, command);
+  commands.push(command.data.toJSON());
 }
 
 // Load all events
@@ -25,6 +29,21 @@ for (const file of eventFiles) {
     client.on(event.name, (...args) => event.execute(...args));
   }
 }
+
+// Re-register commands
+const rest = new REST({ version: '9' }).setToken(token);
+
+(async () => {
+  try {
+    console.log('Started refreshing application (/) commands.');
+
+    await rest.put(Routes.applicationCommands(clientId), { body: commands });
+
+    console.log('Successfully reloaded application (/) commands.');
+  } catch (error) {
+    console.error(error);
+  }
+})();
 
 // Login to Discord with your client's token
 client.login(token);
