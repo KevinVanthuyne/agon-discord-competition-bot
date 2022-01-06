@@ -7,6 +7,7 @@ A Discord bot that people can post scores to and that provides a scoreboard.
 
 ```json
 {
+	"clientId": "your-client-id-goes-here",
 	"token": "your-token-goes-here"
 }
 ```
