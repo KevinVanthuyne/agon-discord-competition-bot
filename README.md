@@ -1,13 +1,8 @@
 # Discord Competition Bot
+
 A Discord bot that people can post scores to and that provides a scoreboard.
 
 ## Setup
-1. Run `npm install` to install all node modules.
-2. Create a `config.json` file and add the following content:
 
-```json
-{
-	"clientId": "your-client-id-goes-here",
-	"token": "your-token-goes-here"
-}
-```
+1. Run `npm install` to install all node modules.
+2. Rename `config.json.example` to `config.json` and fill in the necessary data
