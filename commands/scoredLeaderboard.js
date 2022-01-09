@@ -10,13 +10,13 @@ module.exports = {
     await interaction.client.scoreService
       .getScores()
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
 
         interaction.reply({
           content: `
         **Leaderboard**
-        ${res.data}
-      `,
+        `,
+          // ${res.data}
           ephemeral: true,
         });
       })

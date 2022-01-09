@@ -1,4 +1,5 @@
 {
   "clientId": "your-client-id",
-  "token": "your-token"
+  "token": "your-token",
+  "apiUrl": "https://server.com"
 }
