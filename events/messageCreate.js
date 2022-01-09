@@ -1,16 +1,18 @@
 const { MessagePayload } = require('discord.js');
+const scoredCommandPattern = /^!scored (\d+)$/;
 
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    if (!message.content.startsWith('!scored ')) return;
+    const match = scoredCommandPattern.exec(message.content);
 
-    if (message.attachments.length < 1) return;
+    if (!match || message.attachments.length < 1) return;
 
     const imgUrl = message.attachments.first().url;
+    const score = match[1];
 
     const payload = new MessagePayload(message, {
-      content: `<@${message.author.id}> posted a new score!`,
+      content: `<@${message.author.id}> posted a new score of ${score}!`,
       files: [imgUrl],
     });
 
