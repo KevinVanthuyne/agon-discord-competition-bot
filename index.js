@@ -3,11 +3,13 @@ const { Client, Intents, Collection } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { token, clientId } = require('./config.json');
+const ScoreService = require('./services/scoreService');
 
 // Create a new client instance
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 });
+client.scoreService = new ScoreService();
 
 // Load all commands
 const commands = [];
