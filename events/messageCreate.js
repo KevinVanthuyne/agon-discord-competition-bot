@@ -5,18 +5,15 @@ module.exports = {
   async execute(message) {
     if (!message.content.startsWith('!scored ')) return;
 
-    console.log(message);
+    if (message.attachments.length < 1) return;
 
-    new MessagePayload(message, {
+    const imgUrl = message.attachments.first().url;
+
+    const payload = new MessagePayload(message, {
       content: `<@${message.author.id}> posted a new score!`,
-      files: [
-        {
-          buffer: message.attachment,
-        },
-      ],
+      files: [imgUrl],
     });
-    MessagePayload.create();
 
-    await message.reply(`<@${message.author.id}> posted a new score!`);
+    await message.reply(payload);
   },
 };
