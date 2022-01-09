@@ -14,6 +14,6 @@ module.exports = {
       files: [imgUrl],
     });
 
-    await message.reply(payload);
+    await message.reply(payload).then(() => message.delete());
   },
 };
