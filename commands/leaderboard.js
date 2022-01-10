@@ -3,8 +3,8 @@ const Table = require('text-table');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('scored-leaderboard')
-    .setDescription('Show all scores and users on the leaderboard...'),
+    .setName('leaderboard')
+    .setDescription('Show all scores and users on the leaderboard.'),
   async execute(interaction) {
     console.log('Interaction', interaction);
 
