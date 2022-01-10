@@ -27,10 +27,11 @@ module.exports = {
         console.log(response.data);
 
         const scoreDelta = response.data.scoreDelta;
+        const scoreDeltaString = scoreDelta >= 0 ? `+${scoreDelta.toLocaleString()}` : scoreDelta.toLocaleString();
         const payload = new MessagePayload(message, {
-          content: `<@${message.author.id}> posted a new score of ${response.data.score.score} (${
-            scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta
-          } from personal highscore)!`,
+          content: `<@${
+            message.author.id
+          }> posted a new score of **${response.data.score.score.toLocaleString()}** (${scoreDeltaString} from personal best)!`,
           // files: [response.data.score.scoreImageUrl],
         });
         message.reply(payload).then(() => message.delete());

@@ -1,19 +1,29 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const Table = require('text-table');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('scored-leaderboard')
-    .setDescription('Show all scores and users on the leaderboard.'),
+    .setDescription('Show all scores and users on the leaderboard...'),
   async execute(interaction) {
+    console.log('Interaction', interaction);
+
+    if (!interaction) return;
+
     await interaction.client.scoreService
       .getRanking(1) // TODO fetch current game
       .then((res) => {
         console.log(res.data);
 
-        let content = '**Leaderboard**';
-        res.data.forEach((highScore) => {
-          content += `\n${highScore.rank}   ${highScore.username}   ${highScore.score}`;
-        });
+        const tableData = res.data.map((highScore) => [
+          highScore.rank.toString(),
+          highScore.username,
+          highScore.score.toLocaleString(),
+        ]);
+        console.log(tableData);
+        const table = Table(tableData);
+
+        const content = `**Leaderboard**\`\`\`${table}\`\`\``;
 
         interaction.reply({
           content,
