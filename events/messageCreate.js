@@ -30,7 +30,7 @@ module.exports = {
         const scoreDeltaString = scoreDelta >= 0 ? `+${scoreDelta.toLocaleString()}` : scoreDelta.toLocaleString();
         const payload = new MessagePayload(message, {
           content: `<@${
-            message.author.id
+            response.data.score.userId
           }> posted a new score of **${response.data.score.points.toLocaleString()}** (${scoreDeltaString} from personal best)!`,
           // files: [response.data.score.scoreImageUrl],
         });
