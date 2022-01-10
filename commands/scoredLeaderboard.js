@@ -5,18 +5,18 @@ module.exports = {
     .setName('scored-leaderboard')
     .setDescription('Show all scores and users on the leaderboard.'),
   async execute(interaction) {
-    console.log('test');
-
     await interaction.client.scoreService
-      .getScores()
+      .getRanking(1) // TODO fetch current game
       .then((res) => {
         console.log(res.data);
 
+        let content = '**Leaderboard**';
+        res.data.forEach((highScore) => {
+          content += `\n${highScore.rank}   ${highScore.username}   ${highScore.score}`;
+        });
+
         interaction.reply({
-          content: `
-        **Leaderboard**
-        `,
-          // ${res.data}
+          content,
           ephemeral: true,
         });
       })
