@@ -7,4 +7,8 @@ module.exports = class GameService {
       name,
     });
   }
+
+  getGames() {
+    return axios.get(`${apiUrl}/api/v1/games`);
+  }
 };

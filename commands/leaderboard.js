@@ -6,10 +6,6 @@ module.exports = {
     .setName('leaderboard')
     .setDescription('Show all scores and users on the leaderboard.'),
   async execute(interaction) {
-    console.log('Interaction', interaction);
-
-    if (!interaction) return;
-
     await interaction.client.scoreService
       .getRanking(1) // TODO fetch current game
       .then((res) => {
@@ -22,6 +18,7 @@ module.exports = {
 
         const tableData = [
           ['Rank', 'User', 'Score'],
+          ['---', '---', '---'],
           ...res.data.map((highScore) => [
             highScore.rank.toString(),
             highScore.username,
