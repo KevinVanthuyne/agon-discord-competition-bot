@@ -22,10 +22,6 @@ module.exports = {
         gameId: 1,
       })
       .then((response) => {
-        console.log(message.author.id);
-
-        console.log(response.data);
-
         const scoreDelta = response.data.scoreDelta;
         const scoreDeltaString = scoreDelta >= 0 ? `+${scoreDelta.toLocaleString()}` : scoreDelta.toLocaleString();
         const payload = new MessagePayload(message, {
