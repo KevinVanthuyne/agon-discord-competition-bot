@@ -6,16 +6,38 @@ module.exports = {
   async execute(message) {
     const match = scoredCommandPattern.exec(message.content);
 
-    if (!match || message.attachments.length < 1) return;
+    // TODO add `|| message.attachments.length < 1`, now ignoring images for testing
+    if (!match) return;
 
-    const imgUrl = message.attachments.first().url;
+    // const scoreImageUrl = message.attachments.first().url;
     const score = match[1];
 
-    const payload = new MessagePayload(message, {
-      content: `<@${message.author.id}> posted a new score of ${score}!`,
-      files: [imgUrl],
-    });
+    await message.client.scoreService
+      .addScore({
+        score,
+        // scoreImageUrl,
+        scoreImageUrl: '',
+        userId: message.author.id,
+        username: message.author.username,
+        gameId: 1,
+      })
+      .then((response) => {
+        console.log(message.author.id);
 
-    await message.reply(payload).then(() => message.delete());
+        console.log(response.data);
+
+        const scoreDelta = response.data.scoreDelta;
+        const payload = new MessagePayload(message, {
+          content: `<@${message.author.id}> posted a new score of ${response.data.score.score} (${
+            scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta
+          } from personal highscore)!`,
+          // files: [response.data.score.scoreImageUrl],
+        });
+        message.reply(payload).then(() => message.delete());
+      })
+      .catch((error) => {
+        console.log(error);
+        message.reply({ content: 'Something went wrong, could not post score 😢', ephemeral: true });
+      });
   },
 };
