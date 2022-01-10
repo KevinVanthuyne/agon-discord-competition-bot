@@ -6,9 +6,9 @@ module.exports = class ScoreService {
     return axios.get(`${apiUrl}/api/v1/scores/${gameId}/ranking`);
   }
 
-  addScore({ score, scoreImageUrl, userId, username, gameId }) {
+  addScore({ points, scoreImageUrl, userId, username, gameId }) {
     return axios.post(`${apiUrl}/api/v1/scores`, {
-      score,
+      points,
       scoreImageUrl,
       userId,
       username,

@@ -13,16 +13,22 @@ module.exports = {
     await interaction.client.scoreService
       .getRanking(1) // TODO fetch current game
       .then((res) => {
-        console.log(res.data);
+        if (res.data.length === 0) {
+          return interaction.reply({
+            content: 'No scores have been posted yet.',
+            ephemeral: true,
+          });
+        }
 
-        const tableData = res.data.map((highScore) => [
-          highScore.rank.toString(),
-          highScore.username,
-          highScore.score.toLocaleString(),
-        ]);
-        console.log(tableData);
+        const tableData = [
+          ['Rank', 'User', 'Score'],
+          ...res.data.map((highScore) => [
+            highScore.rank.toString(),
+            highScore.username,
+            highScore.score.toLocaleString(),
+          ]),
+        ];
         const table = Table(tableData);
-
         const content = `**Leaderboard**\`\`\`${table}\`\`\``;
 
         interaction.reply({

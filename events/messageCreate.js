@@ -10,11 +10,11 @@ module.exports = {
     if (!match) return;
 
     // const scoreImageUrl = message.attachments.first().url;
-    const score = match[1];
+    const points = match[1];
 
     await message.client.scoreService
       .addScore({
-        score,
+        points,
         // scoreImageUrl,
         scoreImageUrl: '',
         userId: message.author.id,
@@ -31,7 +31,7 @@ module.exports = {
         const payload = new MessagePayload(message, {
           content: `<@${
             message.author.id
-          }> posted a new score of **${response.data.score.score.toLocaleString()}** (${scoreDeltaString} from personal best)!`,
+          }> posted a new score of **${response.data.score.points.toLocaleString()}** (${scoreDeltaString} from personal best)!`,
           // files: [response.data.score.scoreImageUrl],
         });
         message.reply(payload).then(() => message.delete());
