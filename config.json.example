@@ -1,5 +1,6 @@
 {
   "clientId": "your-client-id",
+  "guildId": "your-guild-id",
   "token": "your-token",
   "apiUrl": "https://server.com"
 }
