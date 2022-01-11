@@ -18,7 +18,7 @@ module.exports = {
 
         const tableData = [
           ['Rank', 'User', 'Score'],
-          ['---', '---', '---'],
+          ['----', '----', '----'],
           ...res.data.map((highScore) => [
             highScore.rank.toString(),
             highScore.username,

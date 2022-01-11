@@ -12,7 +12,11 @@ module.exports = {
     }
 
     await interaction.client.gameService.getGames().then((response) => {
-      const tableData = [['Id', 'Game'], ['---', '---'], ...response.data.map((game) => [game.id, game.name])];
+      const tableData = [
+        ['Id', 'Game', 'Start', 'End'],
+        ['----', '----', '----', '----'],
+        ...response.data.map((game) => [game.id, game.name, game.startDate, game.endDate]),
+      ];
       const table = Table(tableData);
       const content = `**Games**\`\`\`${table}\`\`\``;
 
