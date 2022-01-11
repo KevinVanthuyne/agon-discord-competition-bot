@@ -5,6 +5,7 @@ const { Routes } = require('discord-api-types/v9');
 const { token, clientId, guildId } = require('./config.json');
 const ScoreService = require('./services/scoreService');
 const GameService = require('./services/gameService');
+const CompetitionService = require('./services/competitionService');
 
 // Create a new client instance
 const client = new Client({
@@ -12,6 +13,7 @@ const client = new Client({
 });
 client.scoreService = new ScoreService();
 client.gameService = new GameService();
+client.competitionService = new CompetitionService();
 
 // Load all commands
 console.log('\n--- Loading commands:');

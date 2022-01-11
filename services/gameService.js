@@ -3,12 +3,12 @@ const { apiUrl } = require('../config.json');
 
 module.exports = class GameService {
   addGame({ name }) {
-    return axios.post(`${apiUrl}/api/v1/games`, {
+    return axios.post(`${apiUrl}/api/v1/game`, {
       name,
     });
   }
 
   getGames() {
-    return axios.get(`${apiUrl}/api/v1/games`);
+    return axios.get(`${apiUrl}/api/v1/game`);
   }
 };
