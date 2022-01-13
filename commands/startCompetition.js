@@ -13,13 +13,13 @@ module.exports = {
       });
     }
 
-    const startDate = new Date(`${interaction.options.getString('date')}Z`);
-
-    await interaction.client.competitionService.startCompetition({ startDate }).then(() => {
-      interaction.reply({
-        content: 'Competition will start on X.',
-        ephemeral: true,
+    await interaction.client.competitionService
+      .startCompetition({ startDate: interaction.options.getString('date') })
+      .then(() => {
+        interaction.reply({
+          content: 'Competition will start on X.',
+          ephemeral: true,
+        });
       });
-    });
   },
 };
