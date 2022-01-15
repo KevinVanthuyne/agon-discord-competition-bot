@@ -3,7 +3,15 @@ const { apiUrl } = require('../config.json');
 
 module.exports = class ScoreService {
   getRanking(gameId) {
-    return axios.get(`${apiUrl}/api/v1/score/${gameId}/ranking`);
+    return axios.get(`${apiUrl}/api/v1/score/game/${gameId}/ranking`);
+  }
+
+  getScoresForGameOfUser(gameId, userId) {
+    return axios.get(`${apiUrl}/api/v1/score/game/${gameId}/user/${userId}`);
+  }
+
+  getScoresForGame(gameId) {
+    return axios.get(`${apiUrl}/api/v1/score/game/${gameId}`);
   }
 
   addScore({ points, scoreImageUrl, userId, username, gameId }) {
