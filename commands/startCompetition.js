@@ -15,9 +15,9 @@ module.exports = {
 
     await interaction.client.competitionService
       .startCompetition({ startDate: interaction.options.getString('date') })
-      .then(() => {
+      .then((response) => {
         interaction.reply({
-          content: 'Competition will start on X.',
+          content: `Competition will start on ${response.data.startDate}.`,
           ephemeral: true,
         });
       });
