@@ -14,6 +14,10 @@ module.exports = class ScoreService {
     return axios.get(`${apiUrl}/api/v1/score/game/${gameId}`);
   }
 
+  getScoresOfUser(userId) {
+    return axios.get(`${apiUrl}/api/v1/score/user/${userId}`);
+  }
+
   addScore({ points, scoreImageUrl, userId, username, gameId }) {
     return axios.post(`${apiUrl}/api/v1/score`, {
       points,
