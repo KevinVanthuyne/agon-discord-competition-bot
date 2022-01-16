@@ -11,4 +11,8 @@ module.exports = class GameService {
   getGames() {
     return axios.get(`${apiUrl}/api/v1/game`);
   }
+
+  getActiveGame() {
+    return axios.get(`${apiUrl}/api/v1/game/active`);
+  }
 };
