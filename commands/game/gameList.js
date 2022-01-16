@@ -5,7 +5,7 @@ module.exports = async function execute(interaction) {
     const tableData = [
       ['Id', 'Game', 'Start'],
       ['----', '----', '----'],
-      ...response.data.map((game) => [game.id, game.name, game.startDate]),
+      ...response.data.map((game) => [game.id, game.name, game.startDate || '']),
     ];
     const table = Table(tableData);
     const content = `**Games**\`\`\`${table}\`\`\``;

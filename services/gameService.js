@@ -8,6 +8,13 @@ module.exports = class GameService {
     });
   }
 
+  updateGame({ id, newName }) {
+    return axios.put(`${apiUrl}/api/v1/game`, {
+      id,
+      name: newName,
+    });
+  }
+
   getGames() {
     return axios.get(`${apiUrl}/api/v1/game`);
   }
