@@ -20,7 +20,21 @@ console.log('\n--- Loading commands:');
 
 const commands = [];
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
+
+const commandFiles = [];
+fs.readdirSync('./commands').forEach((path) => {
+  const stats = fs.statSync(`./commands/${path}`);
+
+  if (stats.isDirectory()) {
+    const subDirFiles = fs
+      .readdirSync(`./commands/${path}`)
+      .filter((subpath) => subpath.endsWith('.js'))
+      .map((subpath) => `${path}/${subpath}`);
+    commandFiles.push(...subDirFiles);
+  } else {
+    commandFiles.push(path);
+  }
+});
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
