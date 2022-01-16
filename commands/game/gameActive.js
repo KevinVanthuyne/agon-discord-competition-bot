@@ -1,13 +1,6 @@
 const Table = require('text-table');
 
-module.exports = async function gameActiveCommand(interaction) {
-  if (interaction.user.id !== interaction.guild.ownerId) {
-    return interaction.reply({
-      content: 'You are not allowed to use this command.',
-      ephemeral: true,
-    });
-  }
-
+module.exports = async function execute(interaction) {
   await interaction.client.gameService.getActiveGame().then((response) => {
     if (response.data.id < 0) {
       interaction.reply({

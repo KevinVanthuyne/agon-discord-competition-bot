@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const runGameActiveCommand = require('./game/gameActive');
+const runGameAddCommand = require('./game/gameAdd');
+const runGameListCommand = require('./game/gameList');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,7 +12,7 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('add')
-        .setDescription('Add a games to the competition.')
+        .setDescription('Add a new games to the competition.')
         .addStringOption((option) => option.setName('name').setRequired(true).setDescription('Name of the game')),
     ),
   async execute(interaction) {
@@ -21,12 +23,16 @@ module.exports = {
       });
     }
 
-    if (interaction.options.getSubcommand() === 'list') {
-      await interaction.reply('Game list');
-    } else if (interaction.options.getSubcommand() === 'add') {
-      await interaction.reply('Game add');
-    } else if (interaction.options.getSubcommand() === 'active') {
-      runGameActiveCommand(interaction);
+    switch (interaction.options.getSubcommand()) {
+      case 'list':
+        runGameListCommand(interaction);
+        break;
+      case 'add':
+        runGameAddCommand(interaction);
+        break;
+      case 'active':
+        runGameActiveCommand(interaction);
+        break;
     }
   },
 };
