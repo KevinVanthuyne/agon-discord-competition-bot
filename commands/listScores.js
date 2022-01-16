@@ -25,10 +25,15 @@ module.exports = {
     } else if (gameId) {
       await listScoresForGame(interaction, gameId);
     } else {
-      await interaction.reply({
-        content: 'No game and/or user id was given.',
-        ephemeral: true,
-      });
+      const activeGame = (await interaction.client.gameService.getActiveGame()).data;
+      if (activeGame.id < 0) {
+        interaction.reply({
+          content: 'There is no active game at the moment for which to list scores.',
+          ephemeral: true,
+        });
+        return;
+      }
+      await listScoresForGame(interaction, activeGame.id);
     }
   },
 };
