@@ -26,7 +26,7 @@ module.exports = {
         [response.data.id, response.data.name, response.data.startDate],
       ];
       const table = Table(tableData);
-      const content = `**Games**\`\`\`${table}\`\`\``;
+      const content = `**Active game**\`\`\`${table}\`\`\``;
 
       interaction.reply({
         content,
