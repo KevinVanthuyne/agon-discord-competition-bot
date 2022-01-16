@@ -12,6 +12,16 @@ module.exports = {
     // const scoreImageUrl = message.attachments.first().url;
     const points = match[1];
 
+    const activeGame = (await message.client.gameService.getActiveGame()).data;
+
+    if (activeGame.id < 0) {
+      message.reply({
+        content: 'There is no active game at the moment for which you can post a score.',
+        ephemeral: true,
+      });
+      return;
+    }
+
     await message.client.scoreService
       .addScore({
         points,
@@ -19,7 +29,6 @@ module.exports = {
         scoreImageUrl: '',
         userId: message.author.id,
         username: message.author.username,
-        gameId: 1,
       })
       .then((response) => {
         const scoreDelta = response.data.scoreDelta;
