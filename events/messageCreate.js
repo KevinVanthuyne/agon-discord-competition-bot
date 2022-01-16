@@ -34,9 +34,9 @@ module.exports = {
         const scoreDelta = response.data.scoreDelta;
         const scoreDeltaString = scoreDelta >= 0 ? `+${scoreDelta.toLocaleString()}` : scoreDelta.toLocaleString();
         const payload = new MessagePayload(message, {
-          content: `<@${
-            response.data.score.userId
-          }> posted a new score of **${response.data.score.points.toLocaleString()}** (${scoreDeltaString} from personal best)!`,
+          content: `<@${response.data.score.userId}> posted a new ${
+            response.data.game.name
+          } score of **${response.data.score.points.toLocaleString()}** (${scoreDeltaString} from personal best)!`,
           // files: [response.data.score.scoreImageUrl],
         });
         message.reply(payload).then(() => message.delete());
