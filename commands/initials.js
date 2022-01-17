@@ -12,9 +12,9 @@ module.exports = {
         name: interaction.user.username,
         initials: interaction.options.getString('initials'),
       })
-      .then(() => {
+      .then((response) => {
         interaction.reply({
-          content: 'Your initials were set.',
+          content: `Your initials were set to ${response.data.initials}.`,
           ephemeral: true,
         });
       });

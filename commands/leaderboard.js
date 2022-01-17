@@ -17,11 +17,12 @@ module.exports = {
         }
 
         const tableData = [
-          ['Rank', 'User', 'Score'],
-          ['----', '----', '----'],
+          ['Rank', 'User', 'Initials', 'Score'],
+          ['----', '----', '----', '----'],
           ...res.data.map((highScore) => [
             highScore.rank.toString(),
             highScore.username,
+            highScore.initials,
             highScore.score.toLocaleString(),
           ]),
         ];
