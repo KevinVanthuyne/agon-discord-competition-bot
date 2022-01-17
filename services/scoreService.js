@@ -6,6 +6,10 @@ module.exports = class ScoreService {
     return axios.get(`${apiUrl}/api/v1/score/${id}`);
   }
 
+  deleteScore(id) {
+    return axios.delete(`${apiUrl}/api/v1/score/${id}`);
+  }
+
   getRanking(gameId) {
     return axios.get(`${apiUrl}/api/v1/score/game/${gameId}/ranking`);
   }
