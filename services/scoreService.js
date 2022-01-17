@@ -6,6 +6,10 @@ module.exports = class ScoreService {
     return axios.get(`${apiUrl}/api/v1/score/game/${gameId}/ranking`);
   }
 
+  getCurrentRanking() {
+    return axios.get(`${apiUrl}/api/v1/score/ranking`);
+  }
+
   getScoresForGameOfUser(gameId, userId) {
     return axios.get(`${apiUrl}/api/v1/score/game/${gameId}/user/${userId}`);
   }

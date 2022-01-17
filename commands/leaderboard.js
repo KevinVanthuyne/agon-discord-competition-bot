@@ -7,7 +7,7 @@ module.exports = {
     .setDescription('Show all scores and users on the leaderboard.'),
   async execute(interaction) {
     await interaction.client.scoreService
-      .getRanking(1) // TODO fetch current game
+      .getCurrentRanking()
       .then((res) => {
         if (res.data.length === 0) {
           return interaction.reply({
