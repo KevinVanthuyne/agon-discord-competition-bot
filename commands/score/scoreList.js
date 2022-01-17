@@ -1,41 +1,26 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const Table = require('text-table');
 
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName('list-scores')
-    .setDescription('Lists all scores of a user, game or user for a game.')
-    .addNumberOption((option) => option.setName('game-id').setDescription('The id of the game').setRequired(false))
-    .addStringOption((option) => option.setName('user-id').setDescription('The id of the user').setRequired(false)),
-  async execute(interaction) {
-    if (interaction.user.id !== interaction.guild.ownerId) {
-      return interaction.reply({
-        content: 'You are not allowed to use this command.',
+module.exports = async function execute(interaction) {
+  const gameId = interaction.options.getNumber('game-id');
+  const userId = interaction.options.getString('user-id');
+
+  if (userId && gameId) {
+    await listScoresOfUserForGame(interaction, gameId, userId);
+  } else if (userId) {
+    await listScoresOfUser(interaction, userId);
+  } else if (gameId) {
+    await listScoresForGame(interaction, gameId);
+  } else {
+    const activeGame = (await interaction.client.gameService.getActiveGame()).data;
+    if (activeGame.id < 0) {
+      interaction.reply({
+        content: 'There is no active game at the moment for which to list scores.',
         ephemeral: true,
       });
+      return;
     }
-
-    const gameId = interaction.options.getNumber('game-id');
-    const userId = interaction.options.getString('user-id');
-
-    if (userId && gameId) {
-      await listScoresOfUserForGame(interaction, gameId, userId);
-    } else if (userId) {
-      await listScoresOfUser(interaction, userId);
-    } else if (gameId) {
-      await listScoresForGame(interaction, gameId);
-    } else {
-      const activeGame = (await interaction.client.gameService.getActiveGame()).data;
-      if (activeGame.id < 0) {
-        interaction.reply({
-          content: 'There is no active game at the moment for which to list scores.',
-          ephemeral: true,
-        });
-        return;
-      }
-      await listScoresForGame(interaction, activeGame.id);
-    }
-  },
+    await listScoresForGame(interaction, activeGame.id);
+  }
 };
 
 async function listScoresForGame(interaction, gameId) {
