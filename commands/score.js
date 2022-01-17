@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const runScoreList = require('./score/scoreList');
+const runScoreImage = require('./score/scoreImage');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -12,6 +13,15 @@ module.exports = {
         .setDescription('Lists all scores of a user, game or user for a game.')
         .addNumberOption((option) => option.setName('game-id').setDescription('The id of the game').setRequired(false))
         .addStringOption((option) => option.setName('user-id').setDescription('The id of the user').setRequired(false)),
+    )
+    // Score image
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName('image')
+        .setDescription('Get the image of a score.')
+        .addStringOption((option) =>
+          option.setName('score-id').setDescription('The id of the score').setRequired(true),
+        ),
     ),
   async execute(interaction) {
     if (interaction.user.id !== interaction.guild.ownerId) {
@@ -24,6 +34,9 @@ module.exports = {
     switch (interaction.options.getSubcommand()) {
       case 'list':
         runScoreList(interaction);
+        break;
+      case 'image':
+        runScoreImage(interaction);
         break;
     }
   },
