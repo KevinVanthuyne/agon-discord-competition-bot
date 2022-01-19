@@ -1,6 +1,9 @@
 const { MessagePayload } = require('discord.js');
 const scoredCommandPattern = /^!scored (\d+)$/;
 
+/**
+ * messageCreate processes the !scored command in order to be able to get the attached image.
+ */
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
@@ -22,6 +25,8 @@ module.exports = {
       return;
     }
 
+    // TODO score can only be better than personal best
+
     await message.client.scoreService
       .addScore({
         points,
@@ -33,10 +38,13 @@ module.exports = {
       .then((response) => {
         const scoreDelta = response.data.scoreDelta;
         const scoreDeltaString = scoreDelta >= 0 ? `+${scoreDelta.toLocaleString()}` : scoreDelta.toLocaleString();
+        const dto = response.data;
         const payload = new MessagePayload(message, {
-          content: `<@${response.data.score.userId}> posted a new ${
-            response.data.game.name
-          } score of **${response.data.score.points.toLocaleString()}** (${scoreDeltaString} from personal best)!`,
+          content: `<@${dto.score.userId}> posted a new **${
+            dto.game.name
+          }** score!\n**Score:** ${dto.score.points.toLocaleString()} (${scoreDeltaString} from personal best)\n**Rank:** ${
+            dto.rank
+          } of ${dto.amountOfHighScores}`,
           // files: [response.data.score.scoreImageUrl],
         });
         message.reply(payload).then(() => message.delete());
