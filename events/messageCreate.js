@@ -15,16 +15,6 @@ module.exports = {
     // const scoreImageUrl = message.attachments.first().url;
     const points = match[1];
 
-    const activeGame = (await message.client.gameService.getActiveGame()).data;
-
-    if (activeGame.id < 0) {
-      message.reply({
-        content: 'There is no active game at the moment for which you can post a score.',
-        ephemeral: true,
-      });
-      return;
-    }
-
     // TODO score can only be better than personal best
 
     await message.client.scoreService
@@ -50,8 +40,17 @@ module.exports = {
         message.reply(payload).then(() => message.delete());
       })
       .catch((error) => {
-        console.log(error);
-        message.reply({ content: 'Something went wrong, could not post score 😢', ephemeral: true });
+        if (error.response.status === 404) {
+          message.reply({
+            content: 'There is no active game at the moment for which you can post a score.',
+            ephemeral: true,
+          });
+        } else {
+          message.reply({
+            content: 'An error occured',
+            ephemeral: true,
+          });
+        }
       });
   },
 };

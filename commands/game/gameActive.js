@@ -18,7 +18,6 @@ module.exports = async function execute(interaction) {
       });
     })
     .catch((error) => {
-      console.log(error.response.status);
       if (error.response.status === 404) {
         interaction.reply({
           content: 'No game is active currently.',
