@@ -34,6 +34,11 @@ module.exports = {
           ephemeral: true,
         });
       })
-      .catch((error) => console.log(error));
+      .catch(() => {
+        interaction.reply({
+          content: 'An error occured',
+          ephemeral: true,
+        });
+      });
   },
 };

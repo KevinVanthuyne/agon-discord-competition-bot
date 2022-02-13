@@ -17,6 +17,12 @@ module.exports = {
           content: `Your initials were set to ${response.data.initials}.`,
           ephemeral: true,
         });
+      })
+      .catch(() => {
+        interaction.reply({
+          content: 'An error occured',
+          ephemeral: true,
+        });
       });
   },
 };

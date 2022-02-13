@@ -20,6 +20,12 @@ module.exports = {
           content: `Competition will start on ${response.data.startDate}.`,
           ephemeral: true,
         });
+      })
+      .catch(() => {
+        interaction.reply({
+          content: 'An error occured',
+          ephemeral: true,
+        });
       });
   },
 };
