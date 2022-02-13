@@ -61,7 +61,7 @@ async function listScoresForGame(interaction, gameId) {
         });
       } else {
         interaction.reply({
-          content: 'An error occured',
+          content: 'An error occurred.',
           ephemeral: true,
         });
       }
@@ -100,7 +100,7 @@ async function listScoresOfUser(interaction, userId) {
         });
       } else {
         interaction.reply({
-          content: 'An error occured',
+          content: 'An error occurred.',
           ephemeral: true,
         });
       }
@@ -139,7 +139,7 @@ async function listScoresOfUserForGame(interaction, gameId, userId) {
         });
       } else {
         interaction.reply({
-          content: 'An error occured',
+          content: 'An error occurred.',
           ephemeral: true,
         });
       }

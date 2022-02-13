@@ -25,7 +25,7 @@ module.exports = async function execute(interaction) {
         });
       } else {
         interaction.reply({
-          content: 'An error occured',
+          content: 'An error occurred.',
           ephemeral: true,
         });
       }

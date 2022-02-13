@@ -11,7 +11,7 @@ module.exports = async function execute(interaction) {
     })
     .catch(() => {
       interaction.reply({
-        content: 'An error occured',
+        content: 'An error occurred.',
         ephemeral: true,
       });
     });
