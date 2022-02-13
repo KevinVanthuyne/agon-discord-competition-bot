@@ -7,10 +7,25 @@ module.exports = async function execute(interaction) {
     return;
   }
 
-  await interaction.client.gameService.updateGame({ id, newName }).then(() => {
-    interaction.reply({
-      content: 'Game was updated',
-      ephemeral: true,
+  await interaction.client.gameService
+    .updateGame({ id, newName })
+    .then(() => {
+      interaction.reply({
+        content: 'Game was updated',
+        ephemeral: true,
+      });
+    })
+    .catch((error) => {
+      if (error.response.status === 404) {
+        interaction.reply({
+          content: `Could not find game with id ${id}.`,
+          ephemeral: true,
+        });
+      } else {
+        interaction.reply({
+          content: 'An error occured',
+          ephemeral: true,
+        });
+      }
     });
-  });
 };
