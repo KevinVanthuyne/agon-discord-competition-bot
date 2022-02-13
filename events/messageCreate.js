@@ -40,7 +40,12 @@ module.exports = {
         message.reply(payload).then(() => message.delete());
       })
       .catch((error) => {
-        if (error.response.status === 404) {
+        if (error.response.status === 400) {
+          message.reply({
+            content: 'You can only post scores better than your personal best.',
+            ephemeral: true,
+          });
+        } else if (error.response.status === 404) {
           message.reply({
             content: 'There is no active game at the moment for which you can post a score.',
             ephemeral: true,
