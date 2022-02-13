@@ -30,6 +30,10 @@ module.exports = class ScoreService {
     return axios.get(`${apiUrl}/api/v1/score/user/${userId}`);
   }
 
+  getPersonalBest(userId) {
+    return axios.get(`${apiUrl}/api/v1/score/user/${userId}/personal-best`);
+  }
+
   addScore({ points, scoreImageUrl, userId, username, gameId }) {
     return axios.post(`${apiUrl}/api/v1/score`, {
       points,
