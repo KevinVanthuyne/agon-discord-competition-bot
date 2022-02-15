@@ -2,5 +2,6 @@
   "clientId": "your-client-id",
   "guildId": "your-guild-id",
   "token": "your-token",
-  "apiUrl": "https://server.com"
+  "apiUrl": "https://server.com",
+  "hallOfFameChannelId": "channel-id-of-where-to-post-results"
 }
