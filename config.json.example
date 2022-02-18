@@ -3,5 +3,6 @@
   "guildId": "your-guild-id",
   "token": "your-token",
   "apiUrl": "https://server.com",
-  "hallOfFameChannelId": "channel-id-of-where-to-post-results"
+  "hallOfFameChannelId": "channel-id-in-which-to-post-winner",
+  "announceGameChannelId": "channel-id-in-which-to-announce-next-game"
 }
