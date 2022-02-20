@@ -30,8 +30,12 @@ module.exports = {
           announceNextGame(client, activeGame);
           postWinner(client, activeGame);
         })
-        .catch(() => {
-          console.log('Something went wrong when executing the CronJob');
+        .catch((error) => {
+          if (error?.response?.status === 404) {
+            console.log('[Cron] There is no active game.');
+          } else {
+            console.log('[Cron] Something went wrong when executing the CronJob');
+          }
         });
     });
 
