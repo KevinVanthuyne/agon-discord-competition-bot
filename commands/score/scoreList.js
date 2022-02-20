@@ -54,7 +54,7 @@ async function listScoresForGame(interaction, gameId) {
       });
     })
     .catch((error) => {
-      if (error.response.status === 404) {
+      if (error.response?.status === 404) {
         interaction.reply({
           content: `Could not find game with id ${gameId}.`,
           ephemeral: true,
@@ -93,7 +93,7 @@ async function listScoresOfUser(interaction, userId) {
       });
     })
     .catch((error) => {
-      if (error.response.status === 404) {
+      if (error.response?.status === 404) {
         interaction.reply({
           content: `Could not find user with id ${userId}.`,
           ephemeral: true,
@@ -132,7 +132,7 @@ async function listScoresOfUserForGame(interaction, gameId, userId) {
       });
     })
     .catch((error) => {
-      if (error.response.status === 404) {
+      if (error.response?.status === 404) {
         interaction.reply({
           content: `Could not find game ${gameId} and or user ${userId}.`,
           ephemeral: true,

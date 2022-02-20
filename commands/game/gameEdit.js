@@ -16,7 +16,7 @@ module.exports = async function execute(interaction) {
       });
     })
     .catch((error) => {
-      if (error.response.status === 404) {
+      if (error.response?.status === 404) {
         interaction.reply({
           content: `Could not find game with id ${id}.`,
           ephemeral: true,

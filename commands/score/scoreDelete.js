@@ -9,7 +9,7 @@ module.exports = async function execute(interaction) {
       });
     })
     .catch((error) => {
-      if (error.response.status === 404) {
+      if (error.response?.status === 404) {
         interaction.reply({
           content: `Could not find score with id ${scoreId}.`,
           ephemeral: true,
