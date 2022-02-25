@@ -6,10 +6,13 @@ module.exports = {
     .setName('leaderboard')
     .setDescription('Show all scores and users on the leaderboard.'),
   async execute(interaction) {
-    await interaction.client.scoreService
-      .getCurrentRanking()
-      .then((res) => {
-        if (res.data.length === 0) {
+    await Promise.all([
+      interaction.client.gameService.getActiveGame(),
+      interaction.client.scoreService.getCurrentRanking(),
+    ])
+      .then(([gameResponse, highScoresResponse]) => [gameResponse.data, highScoresResponse.data])
+      .then(([game, highScores]) => {
+        if (highScores.length === 0) {
           return interaction.reply({
             content: 'No scores have been posted yet.',
             ephemeral: true,
@@ -19,7 +22,7 @@ module.exports = {
         const tableData = [
           ['Rank', 'User', 'Initials', 'Score'],
           ['----', '----', '----', '----'],
-          ...res.data.map((highScore) => [
+          ...highScores.map((highScore) => [
             highScore.rank.toString(),
             highScore.username,
             highScore.initials,
@@ -27,7 +30,7 @@ module.exports = {
           ]),
         ];
         const table = Table(tableData);
-        const content = `**Leaderboard**\`\`\`${table}\`\`\``;
+        const content = `**Leaderboard - ${game.name}**\`\`\`${table}\`\`\``;
 
         interaction.reply({
           content,
