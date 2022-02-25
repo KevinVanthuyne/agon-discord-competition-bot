@@ -39,7 +39,7 @@ async function listScoresForGame(interaction, gameId) {
         ['----', '----', '----', '----', '----'],
         ...response.data.map((score) => [
           score.id,
-          score.timestamp,
+          score.timestamp || '',
           score.username,
           score.userId,
           score.points.toLocaleString(),
@@ -60,6 +60,7 @@ async function listScoresForGame(interaction, gameId) {
           ephemeral: true,
         });
       } else {
+        console.log(error);
         interaction.reply({
           content: 'An error occurred.',
           ephemeral: true,
