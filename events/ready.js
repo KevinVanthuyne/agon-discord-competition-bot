@@ -2,6 +2,9 @@ const cron = require('cron');
 const { DateTime } = require('luxon');
 const { guildId, hallOfFameChannelId, announceGameChannelId } = require('../config.json');
 
+const testCron = '*/5 * * * * *'; // Every 5 seconds (for testing)
+const productionCron = '0 0 0 * * *'; // Every midnight
+
 module.exports = {
   name: 'ready',
   once: true,
@@ -9,11 +12,7 @@ module.exports = {
     console.log(`Ready! Logged in as ${client.user.tag}`);
 
     // Schedule a message when the next game becomes active
-
-    // Every 5 seconds (for testing)
-    const scheduledMessage = new cron.CronJob('*/5 * * * * *', () => {
-      // Every midnight
-      // const scheduledMessage = new cron.CronJob('0 0 0 * * *', () => {
+    const scheduledMessage = new cron.CronJob(productionCron, () => {
       console.log('[Cron] Running the scheduled job.');
       client.gameService
         .getActiveGame()
