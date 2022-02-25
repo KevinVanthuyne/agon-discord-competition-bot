@@ -73,7 +73,7 @@ function postWinner(client, activeGame) {
       const topScore = highScores[0];
 
       channel.send(
-        `Congratulations to <@${topScore.userId}> for winning the ${game.name} competition with a score of ${topScore.score}!`,
+        `Congratulations to <@${topScore.userId}> for winning the **${game.name}** competition with a score of **${topScore.score}!**`,
       );
     })
     .catch(() => console.log('Something went wrong while fetching the previous game and/or high score'));
