@@ -58,17 +58,24 @@ function postWinner(client, activeGame) {
     console.log('[Cron] There is no previous game to post the winner of.');
     return;
   }
-  client.scoreService
-    .getRanking(previousGameId)
-    .then((response) => response.data)
-    .then((highScores) => {
-      if (highScores.size === 0) return;
+  Promise.all([client.gameService.getGame(previousGameId), client.scoreService.getRanking(previousGameId)])
+    .then(([previousGameResponse, previousHighScoresResponse]) => [
+      previousGameResponse.data,
+      previousHighScoresResponse.data,
+    ])
+    .then(([game, highScores]) => {
+      const guild = client.guilds.cache.get(guildId);
+      const channel = guild.channels.cache.get(hallOfFameChannelId);
+
+      if (highScores.size === 0) {
+        channel.send(`${game.name} has ended without any posted scores.`);
+      }
 
       const topScore = highScores[0];
 
-      const guild = client.guilds.cache.get(guildId);
-      const channel = guild.channels.cache.get(hallOfFameChannelId);
-      channel.send(`The current game has ended. Congratulations to ${topScore.username} for winning!`);
+      channel.send(
+        `Congratulations to <@${topScore.userId}> for winning the ${game.name} competition with a score of ${topScore.score}!`,
+      );
     })
-    .catch(() => console.log('Could not fetch the previous game.'));
+    .catch(() => console.log('Something went wrong while fetching the previous game and/or high score'));
 }
