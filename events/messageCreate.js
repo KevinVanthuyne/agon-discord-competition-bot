@@ -51,6 +51,7 @@ module.exports = {
             ephemeral: true,
           });
         } else {
+          console.log('message create error:', error);
           message.reply({
             content: 'An error occured',
             ephemeral: true,

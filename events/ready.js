@@ -33,6 +33,7 @@ module.exports = {
           if (error?.response?.status === 404) {
             console.log('[Cron] There is no active game.');
           } else {
+            console.log('ready error:', error);
             console.log('[Cron] Something went wrong when executing the CronJob');
           }
         });
