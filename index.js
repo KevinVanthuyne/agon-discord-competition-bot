@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { token, clientId, guildId } = require('./config.json');
+
 const ScoreService = require('./services/scoreService');
 const GameService = require('./services/gameService');
 const CompetitionService = require('./services/competitionService');
