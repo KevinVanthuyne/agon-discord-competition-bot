@@ -24,6 +24,7 @@ module.exports = async function execute(interaction) {
           ephemeral: true,
         });
       } else {
+        console.log('game active error:', error);
         interaction.reply({
           content: 'An error occurred.',
           ephemeral: true,

@@ -16,6 +16,7 @@ module.exports = async function execute(interaction) {
           ephemeral: true,
         });
       } else {
+        console.log('score image error:', error);
         interaction.reply({
           content: 'An error occurred.',
           ephemeral: true,

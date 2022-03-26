@@ -17,7 +17,8 @@ module.exports = async function execute(interaction) {
         ephemeral: true,
       });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log('game list error:', error);
       interaction.reply({
         content: 'An error occurred.',
         ephemeral: true,

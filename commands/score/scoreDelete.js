@@ -15,6 +15,7 @@ module.exports = async function execute(interaction) {
           ephemeral: true,
         });
       } else {
+        console.log('score delete error:', error);
         interaction.reply({
           content: 'An error occurred.',
           ephemeral: true,

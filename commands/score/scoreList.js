@@ -60,7 +60,7 @@ async function listScoresForGame(interaction, gameId) {
           ephemeral: true,
         });
       } else {
-        console.log(error);
+        console.log('score list error:', error);
         interaction.reply({
           content: 'An error occurred.',
           ephemeral: true,

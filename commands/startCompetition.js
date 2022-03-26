@@ -21,7 +21,8 @@ module.exports = {
           ephemeral: true,
         });
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log('start competition error:', error);
         interaction.reply({
           content: 'An error occurred.',
           ephemeral: true,

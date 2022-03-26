@@ -37,7 +37,8 @@ module.exports = {
           ephemeral: true,
         });
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log('leaderboard error:', error);
         interaction.reply({
           content: 'An error occurred.',
           ephemeral: true,

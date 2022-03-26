@@ -18,7 +18,8 @@ module.exports = {
           ephemeral: true,
         });
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log('delete personal best error:', error);
         interaction.reply({
           content: 'An error occurred. There might not be an active game or you did not post any scores yet.',
           ephemeral: true,
