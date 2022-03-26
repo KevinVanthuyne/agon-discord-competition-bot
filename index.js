@@ -4,7 +4,6 @@ const fs = require('fs');
 const { Client, Intents, Collection } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { token, clientId, guildId } = require('./config.json');
 
 const ScoreService = require('./services/scoreService');
 const GameService = require('./services/gameService');
@@ -52,14 +51,14 @@ for (const file of eventFiles) {
 }
 
 // Re-register commands
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
 
 (async () => {
   try {
     console.log('\nStarted refreshing application (/) commands.');
     await rest.put(
       // Routes.applicationCommands(clientId), // Register as global command, used for production
-      Routes.applicationGuildCommands(clientId, guildId), // Register as guild command for instant updating, used for development
+      Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), // Register as guild command for instant updating, used for development
       { body: commands },
     );
     console.log('Successfully reloaded application (/) commands.\n');
@@ -69,4 +68,4 @@ const rest = new REST({ version: '9' }).setToken(token);
 })();
 
 // Login to Discord with your client's token
-client.login(token);
+client.login(process.env.BOT_TOKEN);

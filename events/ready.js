@@ -1,6 +1,5 @@
 const cron = require('cron');
 const { DateTime } = require('luxon');
-const { guildId, hallOfFameChannelId, announceGameChannelId } = require('../config.json');
 
 const testCron = '*/5 * * * * *'; // Every 5 seconds (for testing)
 const productionCron = '0 0 0 * * *'; // Every midnight
@@ -44,8 +43,8 @@ module.exports = {
 };
 
 function announceNextGame(client, activeGame) {
-  const guild = client.guilds.cache.get(guildId);
-  const channel = guild.channels.cache.get(announceGameChannelId);
+  const guild = client.guilds.cache.get(process.env.GUILD_ID);
+  const channel = guild.channels.cache.get(process.env.ANNOUNCE_GAME_CHANNEL_ID);
   channel.send({
     content: `Time for a new game! This month we are playing:\n\n> **${activeGame.name}**\n\nGood luck, and have fun!`,
     files: [{ attachment: activeGame.gameStyle.headerImage }],
@@ -64,8 +63,8 @@ function postWinner(client, activeGame) {
       previousHighScoresResponse.data,
     ])
     .then(([game, highScores]) => {
-      const guild = client.guilds.cache.get(guildId);
-      const channel = guild.channels.cache.get(hallOfFameChannelId);
+      const guild = client.guilds.cache.get(process.env.GUILD_ID);
+      const channel = guild.channels.cache.get(process.env.HALL_OF_FAME_CHANNEL_ID);
 
       if (highScores.size === 0) {
         channel.send(`${game.name} has ended without any posted scores.`);
