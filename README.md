@@ -11,7 +11,7 @@ A Discord bot that people can post scores to and that provides a scoreboard.
 ## Docker setup
 
 1. Build the Docker image: `docker build . -t kevinvt/discord-competition-bot`
-2. Run the image: `docker run -d kevinvt/discord-competition-bot`
+2. Use Docker Compose to run [scored-docker-compose](https://github.com/KevinVanthuyne/scored-docker-compose) to run the entire application
 
 ### Docker commands
 
