@@ -1,28 +1,39 @@
 const axios = require('axios').default;
+const auth = require('../config/apiAuth');
 
 module.exports = class GameService {
   addGame({ name }) {
-    return axios.post(`${process.env.API_URL}/api/v1/game`, {
-      name,
-    });
+    return axios.post(
+      `${process.env.API_URL}/api/v1/game`,
+      {
+        name,
+      },
+      { auth },
+    );
   }
 
   updateGame({ id, newName }) {
-    return axios.put(`${process.env.API_URL}/api/v1/game`, {
-      id,
-      name: newName,
-    });
+    return axios.put(
+      `${process.env.API_URL}/api/v1/game`,
+      {
+        id,
+        name: newName,
+      },
+      { auth },
+    );
   }
 
   getGames() {
-    return axios.get(`${process.env.API_URL}/api/v1/game`);
+    return axios.get(`${process.env.API_URL}/api/v1/game`, {
+      auth,
+    });
   }
 
   getActiveGame() {
-    return axios.get(`${process.env.API_URL}/api/v1/game/active`);
+    return axios.get(`${process.env.API_URL}/api/v1/game/active`, { auth });
   }
 
   getGame(id) {
-    return axios.get(`${process.env.API_URL}/api/v1/game/${id}`);
+    return axios.get(`${process.env.API_URL}/api/v1/game/${id}`, { auth });
   }
 };
