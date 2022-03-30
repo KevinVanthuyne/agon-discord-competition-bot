@@ -15,6 +15,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+ENV NODE_ENV=production
 
 # Run node
 CMD [ "node", "index.js" ]
