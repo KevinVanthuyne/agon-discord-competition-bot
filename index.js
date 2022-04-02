@@ -56,11 +56,17 @@ const rest = new REST({ version: '9' }).setToken(process.env.BOT_TOKEN);
 (async () => {
   try {
     console.log('\nStarted refreshing application (/) commands.');
-    await rest.put(
-      // Routes.applicationCommands(clientId), // Register as global command, used for production
-      Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID), // Register as guild command for instant updating, used for development
-      { body: commands },
-    );
+
+    let routeRegistrationRoute;
+    if (process.env.NODE_ENV === 'production') {
+      console.log('Registering commands as global commands, used in production.');
+      routeRegistrationRoute = Routes.applicationCommands(process.env.CLIENT_ID);
+    } else {
+      console.log('Registering commands as guild commands, used in development for instant updating.');
+      routeRegistrationRoute = Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID);
+    }
+
+    await rest.put(routeRegistrationRoute, { body: commands });
     console.log('Successfully reloaded application (/) commands.\n');
   } catch (error) {
     console.error(error);
