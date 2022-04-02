@@ -12,10 +12,10 @@ module.exports = {
     // TODO add `|| message.attachments.length < 1`, now ignoring images for testing
     if (!match) return;
 
+    if (message.channelId !== process.env.SCORES_POST_CHANNEL_ID) return;
+
     // const scoreImageUrl = message.attachments.first().url;
     const points = match[1];
-
-    // TODO score can only be better than personal best
 
     await message.client.scoreService
       .addScore({
