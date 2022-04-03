@@ -9,19 +9,31 @@ module.exports = {
   async execute(message) {
     const match = scoredCommandPattern.exec(message.content);
 
-    // TODO add `|| message.attachments.length < 1`, now ignoring images for testing
+    // Only run if message starts with !scored
     if (!match) return;
 
+    // Only run if the message was posted in the allowed channel
     if (message.channelId !== process.env.SCORES_POST_CHANNEL_ID) return;
 
-    // const scoreImageUrl = message.attachments.first().url;
-    const points = match[1];
+    // Only run (in production) if a message is attached
+    let scoreImageUrl;
+    if (process.env.NODE_ENV === 'production') {
+      if (message.attachments.length < 1) {
+        message.reply({
+          content: 'You have to add an image attachment to prove your score.',
+          ephemeral: true,
+        });
+        return;
+      } else {
+        scoreImageUrl = message.attachments.first().url;
+      }
+    }
 
+    const points = match[1];
     await message.client.scoreService
       .addScore({
         points,
-        // scoreImageUrl,
-        scoreImageUrl: '',
+        scoreImageUrl,
         userId: message.author.id,
         username: message.author.username,
       })
@@ -29,14 +41,19 @@ module.exports = {
         const scoreDelta = response.data.scoreDelta;
         const scoreDeltaString = scoreDelta >= 0 ? `+${scoreDelta.toLocaleString()}` : scoreDelta.toLocaleString();
         const dto = response.data;
-        const payload = new MessagePayload(message, {
+
+        const messageOptions = {
           content: `<@${dto.score.userId}> posted a new **${
             dto.game.name
           }** score!\n**Score:** ${dto.score.points.toLocaleString()} (${scoreDeltaString} from personal best)\n**Rank:** ${
             dto.rank
           } of ${dto.amountOfHighScores}`,
-          // files: [response.data.score.scoreImageUrl],
-        });
+        };
+        if (scoreImageUrl) {
+          messageOptions.files = [response.data.score.scoreImageUrl];
+        }
+
+        const payload = new MessagePayload(message, messageOptions);
         message.reply(payload).then(() => message.delete());
       })
       .catch((error) => {
