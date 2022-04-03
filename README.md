@@ -4,11 +4,12 @@ A Discord bot that people can post scores to and that provides a scoreboard.
 
 ## Setup
 
+Rename `.env.example` to `.env` and fill in the necessary data.
 ### Manual
 
 1. Install node (v16).
 2. Run `npm install` to install all node modules.
-3. Rename `.env.example` to `.env` and fill in the necessary data.
+3. Run `node .` or `nodemon .` to start the bot.
 
 ### Docker
 
