@@ -45,10 +45,15 @@ module.exports = {
 function announceNextGame(client, activeGame) {
   const guild = client.guilds.cache.get(process.env.GUILD_ID);
   const channel = guild.channels.cache.get(process.env.ANNOUNCE_GAME_CHANNEL_ID);
-  channel.send({
+
+  const message = {
     content: `Time for a new game! This month we are playing:\n\n> **${activeGame.name}**\n\nGood luck, and have fun!`,
-    files: [{ attachment: activeGame.gameStyle.headerImage }],
-  });
+  };
+  if (activeGame.gameStyle?.headerImage) {
+    message.files = [{ attachment: activeGame.gameStyle.headerImage }];
+  }
+
+  channel.send(message);
 }
 
 function postWinner(client, activeGame) {
@@ -68,6 +73,7 @@ function postWinner(client, activeGame) {
 
       if (highScores.size === 0) {
         channel.send(`${game.name} has ended without any posted scores.`);
+        return;
       }
 
       const topScore = highScores[0];
@@ -76,5 +82,5 @@ function postWinner(client, activeGame) {
         `Congratulations to <@${topScore.userId}> for winning the **${game.name}** competition with a score of **${topScore.score}!**`,
       );
     })
-    .catch(() => console.log('Something went wrong while fetching the previous game and/or high score'));
+    .catch((error) => console.log('Something went wrong while fetching the previous game and/or high score', error));
 }
