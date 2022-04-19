@@ -18,7 +18,7 @@ module.exports = {
     // Only run (in production) if a message is attached
     let scoreImageUrl;
     if (process.env.NODE_ENV === 'production') {
-      if (message.attachments.length < 1) {
+      if (message.attachments.size < 1) {
         message.reply({
           content: 'You have to add an image attachment to prove your score.',
           ephemeral: true,
