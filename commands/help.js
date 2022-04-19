@@ -1,7 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-  data: new SlashCommandBuilder().setName('help').setDescription('Explains how to interact with the Scored bot.'),
+  data: new SlashCommandBuilder()
+    .setName('help')
+    .setDescription('Explains how to interact with the Argon Competition Bot.'),
   async execute(interaction) {
     await interaction.reply({
       content: `The following commands are available for regular users:
