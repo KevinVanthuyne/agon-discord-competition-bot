@@ -4,7 +4,10 @@
   "description": "A Discord bot that people can post scores to and keeps a leaderboard.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docker-build": "docker build . -t kevinvt/agon-discord-competition-bot",
+    "docker-hub-push": "docker push kevinvt/agon-discord-competition-bot:latest",
+    "docker-build-push": "npm run docker-build && npm run docker-hub-push"
   },
   "author": "Kevin Vanthuyne",
   "license": "ISC",
