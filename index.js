@@ -10,6 +10,7 @@ const GameService = require('./services/gameService');
 const CompetitionService = require('./services/competitionService');
 const UserService = require('./services/userService');
 const GameStyleService = require('./services/gameStyleService');
+const SettingsService = require('./services/settingsService');
 
 // Create a new client instance
 const client = new Client({
@@ -20,6 +21,7 @@ client.gameService = new GameService();
 client.competitionService = new CompetitionService();
 client.userService = new UserService();
 client.gameStyleService = new GameStyleService();
+client.settingsService = new SettingsService();
 
 // Load all commands
 console.log('\n--- Loading commands:');
@@ -32,6 +34,7 @@ const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   console.log(command.data.name);
+
   client.commands.set(command.data.name, command);
   commands.push(command.data.toJSON());
 }
