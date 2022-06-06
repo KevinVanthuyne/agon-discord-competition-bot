@@ -6,6 +6,7 @@ module.exports = class SettingsService {
     this.scoringChannelId = undefined;
     this.hallOfFameChannelId = undefined;
     this.winnerChannelId = undefined;
+    this.fetchAllChannels();
   }
 
   setScoringChannel({ channelId }) {
@@ -40,16 +41,20 @@ module.exports = class SettingsService {
     );
   }
 
-  fetchAllChannels() {
-    return Promise.allSettled([
+  async fetchAllChannels() {
+    await Promise.allSettled([
       this.fetchScoringChannel(),
       this.fetchHallOfFameChannel(),
       this.fetchWinnerAnnouncementChannel(),
-    ]).then((res) => {
-      this.scoringChannelId = res[0]?.value?.data?.value;
-      this.hallOfFameChannelId = res[1]?.value?.data?.value;
-      this.winnerChannelId = res[2]?.value?.data?.value;
-    });
+    ])
+      .then((res) => {
+        this.scoringChannelId = res[0]?.value?.data?.value;
+        this.hallOfFameChannelId = res[1]?.value?.data?.value;
+        this.winnerChannelId = res[2]?.value?.data?.value;
+      })
+      .catch((error) => {
+        console.log('Channel fetching error:', error);
+      });
   }
 
   fetchScoringChannel() {
