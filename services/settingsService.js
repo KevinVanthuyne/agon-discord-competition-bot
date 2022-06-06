@@ -5,7 +5,7 @@ module.exports = class SettingsService {
   constructor() {
     this.scoringChannelId = undefined;
     this.hallOfFameChannelId = undefined;
-    this.winnerChannelId = undefined;
+    this.gameAnnouncementChannelId = undefined;
     this.fetchAllChannels();
   }
 
@@ -23,9 +23,9 @@ module.exports = class SettingsService {
     });
   }
 
-  setWinnerAnnouncementChannel({ channelId }) {
-    return this.setChannel('winner', channelId).then((res) => {
-      this.winnerChannelId = channelId;
+  setGameAnnouncementChannel({ channelId }) {
+    return this.setChannel('game-announcement', channelId).then((res) => {
+      this.gameAnnouncementChannelId = channelId;
       return res;
     });
   }
@@ -45,12 +45,12 @@ module.exports = class SettingsService {
     await Promise.allSettled([
       this.fetchScoringChannel(),
       this.fetchHallOfFameChannel(),
-      this.fetchWinnerAnnouncementChannel(),
+      this.fetchGameAnnouncementChannel(),
     ])
       .then((res) => {
         this.scoringChannelId = res[0]?.value?.data?.value;
         this.hallOfFameChannelId = res[1]?.value?.data?.value;
-        this.winnerChannelId = res[2]?.value?.data?.value;
+        this.gameAnnouncementChannelId = res[2]?.value?.data?.value;
       })
       .catch((error) => {
         console.log('Channel fetching error:', error);
@@ -65,8 +65,8 @@ module.exports = class SettingsService {
     return this.fetchChannel('hall-of-fame');
   }
 
-  fetchWinnerAnnouncementChannel() {
-    return this.fetchChannel('winner');
+  fetchGameAnnouncementChannel() {
+    return this.fetchChannel('game-announcement');
   }
 
   fetchChannel(channel) {

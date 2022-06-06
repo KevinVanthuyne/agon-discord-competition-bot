@@ -19,7 +19,7 @@ module.exports = {
             .addChoices([
               ['Hall of fame', 'hall-of-fame'],
               ['Score posting', 'scoring'],
-              ['Winner announcement', 'winner'],
+              ['Game announcement', 'game-announcement'],
             ]),
         )
         .addStringOption((option) =>

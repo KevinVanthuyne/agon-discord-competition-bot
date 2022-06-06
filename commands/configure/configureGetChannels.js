@@ -8,7 +8,7 @@ module.exports = async function execute(interaction) {
     ['----', '----'],
     ['Scoring', interaction.client.settingsService.scoringChannelId || ''],
     ['Hall of Fame', interaction.client.settingsService.hallOfFameChannelId || ''],
-    ['Winner', interaction.client.settingsService.winnerChannelId || ''],
+    ['Game announcement', interaction.client.settingsService.gameAnnouncementChannelId || ''],
   ];
   const table = Table(tableData);
   const content = `**Channel Configuration**\`\`\`${table}\`\`\``;

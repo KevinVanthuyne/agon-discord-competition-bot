@@ -12,8 +12,8 @@ module.exports = async function execute(interaction) {
       request = interaction.client.settingsService.setHallOfFameChannel({ channelId });
       break;
 
-    case 'winner':
-      request = interaction.client.settingsService.setWinnerAnnouncementChannel({ channelId });
+    case 'game-announcement':
+      request = interaction.client.settingsService.setGameAnnouncementChannel({ channelId });
       break;
 
     default:
