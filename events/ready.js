@@ -44,7 +44,7 @@ module.exports = {
 
 function announceNextGame(client, activeGame) {
   const guild = client.guilds.cache.get(process.env.GUILD_ID);
-  const channel = client.settingsService.gameAnnouncementChannelId;
+  const channel = guild.channels.cache.get(client.settingsService.gameAnnouncementChannelId);
 
   if (!channel) {
     console.log('No scoring channel has been configured yet. Could not announce next game.');
@@ -74,7 +74,7 @@ function postWinner(client, activeGame) {
     ])
     .then(([game, highScores]) => {
       const guild = client.guilds.cache.get(process.env.GUILD_ID);
-      const channel = client.settingsService.hallOfFameChannelId;
+      const channel = guild.channels.cache.get(client.settingsService.hallOfFameChannelId);
 
       if (!channel) {
         console.log('No hall of fame channel has been configured yet. Could not announce winner.');
