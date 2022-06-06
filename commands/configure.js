@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const runConfigureChannel = require('./configure/configureChannel');
+const runConfigureGetChannels = require('./configure/configureGetChannels');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -24,6 +25,10 @@ module.exports = {
         .addStringOption((option) =>
           option.setName('channel-id').setDescription('The id of the channel.').setRequired(true),
         ),
+    )
+    // Get all configured channels
+    .addSubcommand((subcommand) =>
+      subcommand.setName('get-channels').setDescription('See what channels are configured'),
     ),
   async execute(interaction) {
     if (interaction.user.id !== interaction.guild.ownerId) {
@@ -36,6 +41,9 @@ module.exports = {
     switch (interaction.options.getSubcommand()) {
       case 'channel':
         runConfigureChannel(interaction);
+        break;
+      case 'get-channels':
+        runConfigureGetChannels(interaction);
         break;
     }
   },

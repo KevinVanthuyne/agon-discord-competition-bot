@@ -1,5 +1,5 @@
 module.exports = async function execute(interaction) {
-  const channelId = interaction.options.getNumber('channel-id');
+  const channelId = interaction.options.getString('channel-id');
   const type = interaction.options.getString('type');
   let request;
 
