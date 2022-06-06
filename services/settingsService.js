@@ -2,16 +2,31 @@ const axios = require('axios').default;
 const auth = require('../config/apiAuth');
 
 module.exports = class SettingsService {
+  constructor() {
+    this.scoringChannelId = undefined;
+    this.hallOfFameChannelId = undefined;
+    this.winnerChannelId = undefined;
+  }
+
   setScoringChannel({ channelId }) {
-    return this.setChannel('scoring', channelId);
+    return this.setChannel('scoring', channelId).then((res) => {
+      this.scoringChannelId = channelId;
+      return res;
+    });
   }
 
   setHallOfFameChannel({ channelId }) {
-    return this.setChannel('hall-of-fame', channelId);
+    return this.setChannel('hall-of-fame', channelId).then((res) => {
+      this.hallOfFameChannelId = channelId;
+      return res;
+    });
   }
 
   setWinnerAnnouncementChannel({ channelId }) {
-    return this.setChannel('winner', channelId);
+    return this.setChannel('winner', channelId).then((res) => {
+      this.winnerChannelId = channelId;
+      return res;
+    });
   }
 
   setChannel(channel, channelId) {
@@ -25,31 +40,31 @@ module.exports = class SettingsService {
     );
   }
 
-  getAllChannels() {
+  fetchAllChannels() {
     return Promise.allSettled([
-      this.getScoringChannel(),
-      this.getHallOfFameChannel(),
-      this.getWinnerAnnouncementChannel(),
-    ]).then((res) => ({
-      scoring: res[0]?.value?.data || '',
-      hallOfFame: res[1]?.value?.data || '',
-      winner: res[2]?.value?.data || '',
-    }));
+      this.fetchScoringChannel(),
+      this.fetchHallOfFameChannel(),
+      this.fetchWinnerAnnouncementChannel(),
+    ]).then((res) => {
+      this.scoringChannelId = res[0]?.value?.data?.value;
+      this.hallOfFameChannelId = res[1]?.value?.data?.value;
+      this.winnerChannelId = res[2]?.value?.data?.value;
+    });
   }
 
-  getScoringChannel() {
-    return this.getChannel('scoring');
+  fetchScoringChannel() {
+    return this.fetchChannel('scoring');
   }
 
-  getHallOfFameChannel() {
-    return this.getChannel('hall-of-fame');
+  fetchHallOfFameChannel() {
+    return this.fetchChannel('hall-of-fame');
   }
 
-  getWinnerAnnouncementChannel() {
-    return this.getChannel('winner');
+  fetchWinnerAnnouncementChannel() {
+    return this.fetchChannel('winner');
   }
 
-  getChannel(channel) {
+  fetchChannel(channel) {
     return axios.get(`${process.env.API_URL}/api/v1/setting/channel/${channel}`, { auth });
   }
 };

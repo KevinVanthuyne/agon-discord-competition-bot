@@ -2,10 +2,15 @@ const Table = require('text-table');
 
 module.exports = async function execute(interaction) {
   await interaction.client.settingsService
-    .getAllChannels()
-    .then((channels) => {
-      const data = Object.entries(channels).map((entry) => [entry[0], entry[1]?.value || '']);
-      const tableData = [['Channel', 'Channel Id'], ['----', '----'], ...data];
+    .fetchAllChannels()
+    .then(() => {
+      const tableData = [
+        ['Channel', 'Channel Id'],
+        ['----', '----'],
+        ['Scoring', interaction.client.settingsService.scoringChannelId || ''],
+        ['Hall of Fame', interaction.client.settingsService.hallOfFameChannelId || ''],
+        ['Winner', interaction.client.settingsService.winnerChannelId || ''],
+      ];
       const table = Table(tableData);
       const content = `**Channel Configuration**\`\`\`${table}\`\`\``;
 
