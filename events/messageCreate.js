@@ -14,11 +14,9 @@ module.exports = {
 
     // Scoring channel should be configured
     if (!message.client.settingsService.scoringChannelId) {
-      message
-        .reply({
-          content: 'The channel in which to post scores has not been configured yet.',
-        })
-        .then(() => message.delete());
+      message.reply({
+        content: 'The channel in which to post scores has not been configured yet.',
+      });
       return;
     }
 
