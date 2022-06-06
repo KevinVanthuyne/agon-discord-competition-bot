@@ -38,11 +38,18 @@ module.exports = {
         });
       })
       .catch((error) => {
-        console.log('leaderboard error:', error);
-        interaction.reply({
-          content: 'An error occurred.',
-          ephemeral: true,
-        });
+        if (error.response?.status === 404) {
+          interaction.reply({
+            content: 'No active game to show leaderboard for.',
+            ephemeral: true,
+          });
+        } else {
+          console.log('leaderboard error:', error);
+          interaction.reply({
+            content: 'An error occurred.',
+            ephemeral: true,
+          });
+        }
       });
   },
 };
