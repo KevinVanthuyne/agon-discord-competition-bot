@@ -12,8 +12,18 @@ module.exports = {
     // Only run if message starts with !scored
     if (!match) return;
 
+    // Scoring channel should be configured
+    if (!message.client.settingsService.scoringChannelId) {
+      message
+        .reply({
+          content: 'The channel in which to post scores has not been configured yet.',
+        })
+        .then(() => message.delete());
+      return;
+    }
+
     // Only run if the message was posted in the allowed channel
-    if (message.channelId !== process.env.SCORES_POST_CHANNEL_ID) return;
+    if (message.channelId !== message.client.settingsService.scoringChannelId) return;
 
     // Only run (in production) if a message is attached
     let scoreImageUrl;
@@ -21,7 +31,6 @@ module.exports = {
       if (message.attachments.size < 1) {
         message.reply({
           content: 'You have to add an image attachment to prove your score.',
-          ephemeral: true,
         });
         return;
       } else {
@@ -60,18 +69,15 @@ module.exports = {
         if (error.response.status === 400) {
           message.reply({
             content: 'You can only post scores better than your personal best.',
-            ephemeral: true,
           });
         } else if (error.response.status === 404) {
           message.reply({
             content: 'There is no active game at the moment for which you can post a score.',
-            ephemeral: true,
           });
         } else {
           console.log('message create error:', error);
           message.reply({
             content: 'An error occured',
-            ephemeral: true,
           });
         }
       });
