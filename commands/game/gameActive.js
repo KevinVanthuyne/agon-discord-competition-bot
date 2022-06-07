@@ -10,7 +10,7 @@ module.exports = async function execute(interaction) {
         [response.data.id, response.data.name, response.data.startDate],
       ];
       const table = Table(tableData);
-      const content = `**Active game**\`\`\`${table}\`\`\``;
+      const content = `**Active game**\n\`\`\`${table}\`\`\``;
 
       interaction.reply({
         content,

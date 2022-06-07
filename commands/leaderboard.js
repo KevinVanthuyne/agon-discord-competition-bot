@@ -30,7 +30,7 @@ module.exports = {
           ]),
         ];
         const table = Table(tableData);
-        const content = `**Leaderboard - ${game.name}**\`\`\`${table}\`\`\``;
+        const content = `**Leaderboard - ${game.name}**\n\`\`\`${table}\`\`\``;
 
         interaction.reply({
           content,

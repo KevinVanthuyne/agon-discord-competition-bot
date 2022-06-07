@@ -46,7 +46,7 @@ async function listScoresForGame(interaction, gameId) {
         ]),
       ];
       const table = Table(tableData);
-      const content = `**Scores for game ${response.data[0].gameId}**\`\`\`${table}\`\`\``;
+      const content = `**Scores for game ${response.data[0].gameId}**\n\`\`\`${table}\`\`\``;
 
       interaction.reply({
         content,

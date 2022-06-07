@@ -11,7 +11,7 @@ module.exports = async function execute(interaction) {
     ['Game announcement', interaction.client.settingsService.gameAnnouncementChannelId || ''],
   ];
   const table = Table(tableData);
-  const content = `**Channel Configuration**\`\`\`${table}\`\`\``;
+  const content = `**Channel Configuration**\n\`\`\`${table}\`\`\``;
 
   interaction.reply({
     content,

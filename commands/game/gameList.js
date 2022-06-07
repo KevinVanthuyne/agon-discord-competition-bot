@@ -10,7 +10,7 @@ module.exports = async function execute(interaction) {
         ...response.data.map((game) => [game.id, game.name, game.startDate || '']),
       ];
       const table = Table(tableData);
-      const content = `**Games**\`\`\`${table}\`\`\``;
+      const content = `**Games**\n\`\`\`${table}\`\`\``;
 
       interaction.reply({
         content,

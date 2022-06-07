@@ -20,7 +20,7 @@ module.exports = async function execute(interaction) {
         ],
       ];
       const table = Table(tableData);
-      const content = `**Game Styles**\`\`\`${table}\`\`\``;
+      const content = `**Game Styles**\n\`\`\`${table}\`\`\``;
 
       interaction.reply({
         content,
