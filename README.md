@@ -39,7 +39,8 @@ In order to actually use the bot on a Discord server, this DiscordJS application
 - Generate an OAuth2 invitation URL with the following permissions:
   - `application.commands`
   - `bot`
-    - `Send messages`
-    - `Manage messages`
-    - `Attach files`
+    - `Text Permissions`
+      - `Send messages`
+      - `Manage messages`
+      - `Attach files`
 - Open the generated URL and add the bot to your server
