@@ -2,7 +2,7 @@ module.exports = async function execute(interaction) {
   const id = interaction.options.getNumber('id');
 
   await interaction.client.gameService
-    .deleteGame({ id, newName })
+    .deleteGame({ id })
     .then(() => {
       interaction.reply({
         content: 'Game was deleted',
