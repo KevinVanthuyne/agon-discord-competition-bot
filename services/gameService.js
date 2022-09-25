@@ -23,6 +23,16 @@ module.exports = class GameService {
     );
   }
 
+  deleteGame({ id }) {
+    return axios.delete(
+      `${process.env.API_URL}/api/v1/game`,
+      {
+        id,
+      },
+      { auth },
+    );
+  }
+
   getGames() {
     return axios.get(`${process.env.API_URL}/api/v1/game`, {
       auth,
