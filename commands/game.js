@@ -3,6 +3,7 @@ const runGameActiveCommand = require('./game/gameActive');
 const runGameAddCommand = require('./game/gameAdd');
 const runGameListCommand = require('./game/gameList');
 const runGameEditCommand = require('./game/gameEdit');
+const runGameDeleteCommand = require('./game/gameDelete');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -27,6 +28,13 @@ module.exports = {
           option.setName('new-name').setRequired(false).setDescription('New name of the game'),
         ),
     )
+    // Game delete
+    .addSubcommand((subcommand) =>
+    subcommand
+      .setName('delete')
+      .setDescription('Delete a game.')
+      .addNumberOption((option) => option.setName('id').setRequired(true).setDescription('Id of the game'))
+    )
     // Game list
     .addSubcommand((subcommand) => subcommand.setName('list').setDescription('List all games of the competition.')),
   async execute(interaction) {
@@ -46,6 +54,9 @@ module.exports = {
         break;
       case 'edit':
         runGameEditCommand(interaction);
+        break;
+      case 'delete':
+        runGameDeleteCommand(interaction);
         break;
       case 'active':
         runGameActiveCommand(interaction);
