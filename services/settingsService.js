@@ -32,7 +32,7 @@ module.exports = class SettingsService {
 
   setChannel(channel, channelId) {
     return axios.post(
-      `${process.env.API_URL}/api/v1/setting/channel`,
+      `${process.env.API_URL}/api/v1/settings/channels`,
       {
         channel,
         channelId,
@@ -70,6 +70,6 @@ module.exports = class SettingsService {
   }
 
   fetchChannel(channel) {
-    return axios.get(`${process.env.API_URL}/api/v1/setting/channel/${channel}`, { auth });
+    return axios.get(`${process.env.API_URL}/api/v1/settings/channels/${channel}`, { auth });
   }
 };
