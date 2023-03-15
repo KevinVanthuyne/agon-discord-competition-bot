@@ -7,7 +7,6 @@ const { Routes } = require('discord-api-types/v9');
 
 const ScoreService = require('./services/scoreService');
 const GameService = require('./services/gameService');
-const CompetitionService = require('./services/competitionService');
 const UserService = require('./services/userService');
 const SettingsService = require('./services/settingsService');
 
@@ -17,7 +16,6 @@ const client = new Client({
 });
 client.scoreService = new ScoreService();
 client.gameService = new GameService();
-client.competitionService = new CompetitionService();
 client.userService = new UserService();
 client.settingsService = new SettingsService();
 
