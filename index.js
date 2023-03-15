@@ -9,7 +9,6 @@ const ScoreService = require('./services/scoreService');
 const GameService = require('./services/gameService');
 const CompetitionService = require('./services/competitionService');
 const UserService = require('./services/userService');
-const GameStyleService = require('./services/gameStyleService');
 const SettingsService = require('./services/settingsService');
 
 // Create a new client instance
@@ -20,7 +19,6 @@ client.scoreService = new ScoreService();
 client.gameService = new GameService();
 client.competitionService = new CompetitionService();
 client.userService = new UserService();
-client.gameStyleService = new GameStyleService();
 client.settingsService = new SettingsService();
 
 // Load all commands

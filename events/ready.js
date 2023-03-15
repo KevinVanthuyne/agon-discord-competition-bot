@@ -54,9 +54,9 @@ function announceNextGame(client, activeGame) {
   const message = {
     content: `Time for a new game! This month we are playing:\n\n> **${activeGame.name}**\n\nGood luck, and have fun!`,
   };
-  if (activeGame.gameStyle?.headerImage) {
-    message.files = [{ attachment: activeGame.gameStyle.headerImage }];
-  }
+  // if (activeGame.gameStyle?.headerImage) {
+  //   message.files = [{ attachment: activeGame.gameStyle.headerImage }];
+  // }
 
   channel.send(message);
 }
