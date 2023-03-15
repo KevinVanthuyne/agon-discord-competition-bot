@@ -2,10 +2,6 @@ const axios = require('axios').default;
 const auth = require('../config/apiAuth');
 
 module.exports = class ScoreService {
-  getScore(id) {
-    return axios.get(`${process.env.API_URL}/api/v1/scores/${id}`, { auth });
-  }
-
   deleteScore(id) {
     return axios.delete(`${process.env.API_URL}/api/v1/scores/${id}`, { auth });
   }
@@ -18,21 +14,6 @@ module.exports = class ScoreService {
   // Refactored
   getCurrentRanking() {
     return axios.get(`${process.env.API_URL}/api/v1/scores/ranking`, { auth });
-  }
-
-  // Refactored
-  getScoresForGameOfUser(gameId, userId) {
-    return axios.get(`${process.env.API_URL}/api/v1/scores/game/${gameId}/user/${userId}`, { auth });
-  }
-
-  // Refactored
-  getScoresForGame(gameId) {
-    return axios.get(`${process.env.API_URL}/api/v1/scores/game/${gameId}`, { auth });
-  }
-
-  // Refactored
-  getScoresOfUser(userId) {
-    return axios.get(`${process.env.API_URL}/api/v1/scores/user/${userId}`, { auth });
   }
 
   // Refactored
